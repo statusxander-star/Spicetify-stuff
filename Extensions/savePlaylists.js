@@ -121,7 +121,7 @@
         const playlistDateFormatted = playlistDate
             .toLocaleDateString(LOCALE, OPTIONS)
             .replaceAll(" ", "-");
-        const playlistName = `Copy- ${meta.data.name} (${playlistDateFormatted})`;
+        const playlistName = `${meta.data.name}`;
 
         const newPlaylist = await Spicetify.CosmosAsync.post("sp://core-playlist/v1/rootlist", {
             operation: "create",
@@ -136,7 +136,7 @@
             Spicetify.CosmosAsync.put(
                 `https://api.spotify.com/v1/playlists/${newPlaylist.uri.split(":")[2]}`,
                 {
-                    description: `Copy of ${meta.data.name} by ${meta.data.owner.name}. ${meta.data.description}`,
+                    description: `${meta.data.description}`,
                 },
             ).then(() => Spicetify.showNotification("Description updated successfully!"));
             if (/^spotify:image:\w{40}$|^https:\/\/.*$/.test(meta.data.picture)) {
